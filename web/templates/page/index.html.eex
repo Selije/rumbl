@@ -1,9 +1,9 @@
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}", name: "Phoenix!" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+  <h2>Welcome to Rumbl.io!</h2>
+  <p class="lead">Rumble out loud.</p>
 </div>
 
-<div class="row marketing">
+<!-- <div class="row marketing">
   <div class="col-lg-6">
     <h4>Resources</h4>
     <ul>
@@ -17,9 +17,9 @@
         <a href="https://github.com/phoenixframework/phoenix">Source</a>
       </li>
     </ul>
-  </div>
+  </div> -->
 
-  <div class="col-lg-6">
+  <!-- <div class="col-lg-6">
     <h4>Help</h4>
     <ul>
       <li>
@@ -33,4 +33,4 @@
       </li>
     </ul>
   </div>
-</div>
+</div> -->
