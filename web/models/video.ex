@@ -5,7 +5,8 @@ defmodule Rumbl.Video do
     field :url, :string
     field :title, :string
     field :description, :string
-    belongs_to :user, Rumbl.User, foreign_key: :user_id
+    belongs_to :user, Rumbl.User
+    belongs_to :category, Rumbl.Category
 
     timestamps()
   end
@@ -13,12 +14,14 @@ defmodule Rumbl.Video do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  @required_fields ~w(url title description)
-  @optional_fields ~w()
+  @required_fields ~w(url title description)a  #a makes list of atoms (with ~w only)
+  @optional_fields ~w(category_id)a
 
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
-#    |> validate_required(@required_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
+    |> assoc_constraint(:category)
+
   end
 end
