@@ -11,8 +11,15 @@ defmodule Rumbl.Auth do
 
     def call(conn, repo) do
         user_id = get_session(conn, :user_id)
-        user = user_id && repo.get(Rumbl.User, user_id)
-        assign(conn, :current_user, user)    #assign is a function imported from Plug.Conn
+
+        cond do
+            user = conn.assigns[:current_user] ->
+                conn
+            user = user_id && repo.get(Rumbl.User, user_id) ->
+                assign(conn, :current_user, user)    #assign is a function imported from Plug.Conn
+            true ->
+                assign(conn, :current_user, nil)
+        end
     end
 
     def login(conn, user) do
