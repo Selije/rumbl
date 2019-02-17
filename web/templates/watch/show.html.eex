@@ -11,7 +11,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Annotations</h3>
             </div>
-            <div id="msg-containter" class="panel-body annotations">
+            <div id="msg-container" class="panel-body annotations">
 
             </div>
 
@@ -22,9 +22,9 @@
                           placeholder="Comment..."></textarea>
                 <button id="msg-submit" class="btn btn-primary form-control"
         type="submit">
-                Post
+                    Post
                 </button>
             </div>
         </div>
     </div>
-</div>    
+</div>
