@@ -1,11 +1,11 @@
 defmodule Rumbl.UserSocket do
-  use Phoenix.Socket
+    use Phoenix.Socket
 
   ## Channels
-  channel "videos:*", Rumbl.VideoChannel
+    channel "videos:*", Rumbl.VideoChannel
 
   ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket
+    transport :websocket, Phoenix.Transports.WebSocket
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can
@@ -19,9 +19,18 @@ defmodule Rumbl.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
-  end
+  @max_age 2 * 7 * 24 * 60 * 60  #token is valid about two weeks
+
+    def connect(%{"token" => token}, socket) do
+        case Phoenix.Token.verify(socket, "user socket", token, max_age: @max_age) do
+            {:ok, user_id} ->
+                {:ok, assign(socket, :user_id, user_id)}
+            {:error, _reason} ->
+                :error
+        end
+    end
+
+    def connect(_params, _socket), do: :error
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
@@ -33,5 +42,5 @@ defmodule Rumbl.UserSocket do
   #     Rumbl.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  def id(_socket), do: nil
+    def id(socket), do: "user_socket:#{socket.assigns.user_id}"
 end
