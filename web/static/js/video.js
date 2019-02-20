@@ -28,8 +28,9 @@ let Video = {
         })
 
         vidChannel.join()
-            // vidChannel.on("ping", ({count}) => console.log("PING", count))
-            .receive("ok", resp => console.log("joined the video channel", resp))
+            .receive("ok", ({annotations}) => {
+                annotations.forEach(ann => this.renderAnnotation(msgContainer, ann))
+            })
             .receive("error", reason => console.log("join failed", reason))
     },
 
